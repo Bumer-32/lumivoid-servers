@@ -45,10 +45,9 @@ jobs:
         id: upload-releases
         with:
           tag_name: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             build/libs/
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show download id
         run: echo "${{ fromJSON(steps.upload-releases.outputs.assets)[0].browser_download_url }}"
