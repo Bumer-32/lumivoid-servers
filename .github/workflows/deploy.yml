@@ -57,6 +57,7 @@ jobs:
       - name: Connect to server and deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
