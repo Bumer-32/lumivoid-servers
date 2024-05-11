@@ -44,7 +44,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: upload-releases
         with:
-          tag_name: 'release'
+          tag_name: ${{ github.sha }}
           files: |
             build/libs/
         env:
