@@ -1,4 +1,4 @@
-name: build
+name: deploy
 on:
   push:
     branches:
@@ -36,7 +36,18 @@ jobs:
       - name: upload build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '21' }}
         uses: actions/upload-artifact@v4
-        id: upload-artifact
         with:
           name: Artifacts
           path: build/libs/
+
+      - name: Upload to releases
+        uses: softprops/action-gh-release@v1
+        id: upload-releases
+        with:
+          files: |
+            build/libs/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show download id
+        run: echo "${{ fromJSON(steps.upload-releases.outputs.assets)[0].browser_download_url }}"
