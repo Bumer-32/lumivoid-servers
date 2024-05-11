@@ -47,7 +47,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: upload-releases
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: release
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             build/libs/lumivoid-servers.jar
