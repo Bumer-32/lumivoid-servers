@@ -41,4 +41,4 @@ jobs:
           name: Artifacts
           path: build/libs/
       - name: show url to download
-        run: echo 'download url:: ${{ steps.upload-artifact.outputs.artifact-url }}'
+        run: echo 'download url is ${{ steps.upload-artifact.outputs.artifact-url }}'
