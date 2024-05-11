@@ -44,6 +44,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: upload-releases
         with:
+          tag_name: 'release'
           files: |
             build/libs/
         env:
