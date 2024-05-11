@@ -62,6 +62,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
+            cd /home/${{ secrets.USERNAME }}/lumivoid-servers/
             rm lumivoid-servers.jar &&
             wget ${{ needs.build.outputs.url }} &&
             sudo systemctl restart lumivoid-server &&
