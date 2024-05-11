@@ -2,12 +2,7 @@ name: deploy
 on:
   push:
     branches:
-      - dev
-      - actions-test
-  pull_request:
-    branches:
-      - dev
-      - actions-test
+      - main
 
 jobs:
   build:
@@ -65,5 +60,5 @@ jobs:
             cd /home/${{ secrets.USERNAME }}/lumivoid-servers/
             rm lumivoid-servers.jar &&
             wget ${{ needs.build.outputs.url }} &&
-            sudo systemctl restart lumivoid-server &&
+            systemctl restart lumivoid-server &&
             ls
