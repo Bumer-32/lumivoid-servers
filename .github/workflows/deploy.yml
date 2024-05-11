@@ -58,7 +58,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/${{ secrets.USERNAME }}/lumivoid-servers/
+            ls &&
             rm lumivoid-servers.jar &&
+            ls &&
             wget ${{ needs.build.outputs.url }} &&
-            systemctl restart lumivoid-server &&
+            lumirestart &&
             ls
