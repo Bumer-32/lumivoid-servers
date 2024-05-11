@@ -41,13 +41,14 @@ jobs:
           path: build/libs/
 
       - name: Upload to releases
+        if: ${{ runner.os == 'Linux' && matrix.java == '21' }}
         uses: softprops/action-gh-release@v1
         id: upload-releases
         with:
           tag_name: ${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            build/libs/
+            build/libs/lumivoid-servers.jar
 
       - name: Show download id
         run: echo "${{ fromJSON(steps.upload-releases.outputs.assets)[0].browser_download_url }}"
