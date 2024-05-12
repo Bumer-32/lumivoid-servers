@@ -58,10 +58,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script_stop: false
           script: |
-            cd /home/${{ secrets.USERNAME }}/lumivoid-servers/
-            ls &&
+            cd /home/${{ secrets.USERNAME }}/lumivoid-servers/ &&
             rm lumivoid-servers.jar &&
-            ls &&
             wget ${{ needs.build.outputs.url }} &&
-            ./lumirestart.sh &&
-            ls
+            reboot
