@@ -57,8 +57,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script_stop: false
+          request_pty: true
           script: |
             cd /home/${{ secrets.USERNAME }}/lumivoid-servers/ &&
             rm lumivoid-servers.jar &&
             wget ${{ needs.build.outputs.url }} &&
-            reboot
+            ./lumirestart.sh

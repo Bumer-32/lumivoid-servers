@@ -1,5 +1,6 @@
 package ua.pp.lumivoid.lumivoidservers
 
+import io.github.cdimascio.dotenv.Dotenv
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -25,6 +26,11 @@ class LumivoidServersApplication {
 }
 
 fun main(args: Array<String>) {
+	val dotenv = Dotenv.configure().ignoreIfMissing().load()
+	dotenv.entries().forEach { entry ->
+		System.setProperty(entry.key, entry.value)
+	}
+
 	SpringApplication.run(LumivoidServersApplication::class.java, *args)
 
 }
