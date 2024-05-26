@@ -33,4 +33,9 @@ fun main(args: Array<String>) {
 
 	SpringApplication.run(LumivoidServersApplication::class.java, *args)
 
+	DBconnection.connect(
+		"jdbc:mysql://${dotenv.get("MYSQL_HOST")}:${dotenv.get("MYSQL_PORT")}/${dotenv.get("MYSQL_DB")}",
+		dotenv.get("MYSQL_USER"),
+		dotenv.get("MYSQL_PASSWORD")
+	)
 }
