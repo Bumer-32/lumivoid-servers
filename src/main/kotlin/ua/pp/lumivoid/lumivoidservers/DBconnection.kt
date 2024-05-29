@@ -19,25 +19,28 @@ object DBconnection {
         }
     }
 
-    fun sql(sql: String?): MutableMap<String, Any>? {
-        val resultSet = statement!!.executeQuery(sql)
-        val result = mutableMapOf<String, Any>()
+    fun sql(sql: String): MutableMap<String, Any> {
+        if (sql.split("\\s+".toRegex()).first() == "SELECT") {
+            val resultSet = statement!!.executeQuery(sql)
+            val result = mutableMapOf<String, Any>()
 
-        val metadata = resultSet.metaData
-        val columCount = metadata.columnCount
+            val metadata = resultSet.metaData
+            val columCount = metadata.columnCount
 
-        if (resultSet.next()) {
-            for (i in 1..columCount) {
-                result[metadata.getColumnName(i)] = resultSet.getObject(i)
+            while (resultSet.next()) {
+                for (i in 1..columCount) {
+                    result[metadata.getColumnName(i)] = resultSet.getObject(i)
+                }
             }
-        }
 
-        resultSet.close()
+            resultSet.close()
 
-        return if (result.isEmpty()) {
-            null
+            return result
         } else {
-            result
+            val rowsAffected = statement!!.executeUpdate(sql)
+            val result = mutableMapOf<String, Any>()
+            result["rowsAffected"] = rowsAffected
+            return result
         }
     }
 }
