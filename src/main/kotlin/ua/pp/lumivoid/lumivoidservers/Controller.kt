@@ -17,13 +17,11 @@ class Controller(private val emailService: EmailService) {
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody payload: Map<String, String>): ResponseEntity<String> {
+    fun login(@RequestBody payload: Map<String, String>): ResponseEntity<Any> {
         val email: String = payload["email"].toString()
         val password: String = payload["password"].toString()
 
-        val sql = "SELECT `username`, `password`, `isconfirmed` FROM `account` WHERE `email` = '$email'"
-
-        println(sql)
+        val sql = "SELECT `username`, `password`, `isconfirmed`, `registrationkey` FROM `account` WHERE `email` = '$email'"
 
         val result = DBconnection.sql(sql)
 
@@ -36,7 +34,8 @@ class Controller(private val emailService: EmailService) {
         }
 
         return if (result["password"] == Hasher.sha256(password)) {
-            ResponseEntity(result["username"].toString(), HttpStatus.OK)
+            val userData = mapOf("username" to result["username"], "password" to password)
+            ResponseEntity(userData, HttpStatus.OK)
         } else {
             ResponseEntity("Wrong pass", HttpStatus.UNAUTHORIZED)
         }

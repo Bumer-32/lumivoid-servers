@@ -38,8 +38,7 @@ object DBconnection {
             return result
         } else {
             val rowsAffected = statement!!.executeUpdate(sql)
-            val result = mutableMapOf<String, Any>()
-            result["rowsAffected"] = rowsAffected
+            val result = mutableMapOf<String, Any>("rowsAffected" to rowsAffected)
             return result
         }
     }
